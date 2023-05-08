@@ -5,28 +5,50 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ubaya.a160420119_uts.R
+import com.ubaya.a160420119_uts.viewmodel.ListViewModel
+import kotlinx.android.synthetic.main.fragment_place.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [PlaceFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PlaceFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_place, container, false)
+    private lateinit var navController: NavController
+    private lateinit var drawerLayout: DrawerLayout
+
+    private lateinit var viewModel: ListViewModel
+    private val placeAdapter = PlaceAdapter(arrayListOf())
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        setContentView(R.layout.fragment_place)
+//        drawerLayout = findViewById(R.id.drawerLayout)
+//        navController =
+//            (supportFragmentManager.findFragmentById(R.id.itemList) as
+//                    NavHostFragment).navController
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//        bottomNav.setupWithNavController(navView, navController)
     }
+
+//    override fun onSupportNavigateUp(): Boolean {
+//        return navController.navigateUp()
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
+        viewModel.refresh()
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = PlaceAdapter
+        refreshLayout.setOnRefreshListener {
+            recView.visibility = View.GONE
+            txtError.visibility = View.GONE
+            progressLoad.visibility = View.VISIBLE
+            viewModel.refresh()
+            refreshLayout.isRefreshing = false
+        }
+
+        observeViewModel()
     }
 }
