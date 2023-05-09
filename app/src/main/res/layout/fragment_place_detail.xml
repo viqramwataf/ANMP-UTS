@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.PlaceDetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtPlaceDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:singleLine="false"
+                    android:text="Place Name Detail"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtPlaceDetailLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="false"
+                    android:text="Location"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPlaceDetail"
+                    app:layout_constraintStart_toStartOf="@+id/txtPlaceDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPlaceDetail" />
+
+                <TextView
+                    android:id="@+id/txtOutMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:singleLine="false"
+                    android:text="Menu Food and Beverage"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    app:layout_constraintEnd_toEndOf="@+id/txtPlaceDetailLocation"
+                    app:layout_constraintStart_toStartOf="@+id/txtPlaceDetailLocation"
+                    app:layout_constraintTop_toBottomOf="@+id/txtPlaceDetailLocation" />
+
+                <ImageView
+                    android:id="@+id/imgPlaceDetail"
+                    android:layout_width="80dp"
+                    android:layout_height="97dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="32dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtOutMenu"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/txtNameFnB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:text="Lorem Ipsum"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    app:layout_constraintStart_toEndOf="@+id/imgPlaceDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtOutMenu" />
+
+                <TextView
+                    android:id="@+id/txtMaterialFnB"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:singleLine="false"
+                    android:text="lorem ipsumlorem ipsumlorem ipsum"
+                    android:textAlignment="textStart"
+                    app:layout_constraintStart_toEndOf="@+id/imgPlaceDetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtNameFnB"
+                    app:layout_goneMarginLeft="20dp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar3"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@+id/imgPlaceDetail"
+                    app:layout_constraintEnd_toEndOf="@+id/imgPlaceDetail"
+                    app:layout_constraintStart_toStartOf="@+id/imgPlaceDetail"
+                    app:layout_constraintTop_toTopOf="@+id/imgPlaceDetail" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

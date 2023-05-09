@@ -2,6 +2,7 @@ package com.ubaya.a160420119_uts.view
 
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,7 +47,7 @@ class LoginFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val checkid = shared?.getString(user_id, (-1).toString())
         if(checkid != "-1"){
-            val action = LoginFragmentDirections.actionLoginFragmentToPlaceFragment()
+            val action = LoginFragmentDirections.actionPlaceFragment()
             Navigation.findNavController(view).navigate(action)
         }
         btnLogin.setOnClickListener {
@@ -63,8 +64,9 @@ class LoginFragment : Fragment() {
                         editor?.putString(user_username, username)
                         editor?.putString(user_password, password)
                         editor?.apply()
-                        val action = LoginFragmentDirections.actionLoginFragmentToPlaceFragment()
+                        val action = LoginFragmentDirections.actionPlaceFragment()
                         Navigation.findNavController(it).navigate(action)
+                        Log.d("Login", "masuk ke login ")
                     }
                 }
             } else{

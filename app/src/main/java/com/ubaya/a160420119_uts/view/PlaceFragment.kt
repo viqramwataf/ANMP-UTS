@@ -1,50 +1,67 @@
 package com.ubaya.a160420119_uts.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_place.*
+import androidx.recyclerview.widget.RecyclerView
+import com.ubaya.a160420119_uts.R
+import com.ubaya.a160420119_uts.viewmodel.PlaceListViewModel
 
 class PlaceFragment : Fragment() {
-    private lateinit var navController: NavController
-    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var viewModel: PlaceListViewModel
+    private val placeListAdapter = PlaceAdapter(arrayListOf())
 
-    private lateinit var viewModel: ListViewModel
-    private val placeAdapter = PlaceAdapter(arrayListOf())
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.fragment_place)
-//        drawerLayout = findViewById(R.id.drawerLayout)
-//        navController =
-//            (supportFragmentManager.findFragmentById(R.id.itemList) as
-//                    NavHostFragment).navController
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-//        bottomNav.setupWithNavController(navView, navController)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
-
-//    override fun onSupportNavigateUp(): Boolean {
-//        return navController.navigateUp()
-//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ListViewModel::class.java)
-        viewModel.refresh()
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = PlaceAdapter
-        refreshLayout.setOnRefreshListener {
-            recView.visibility = View.GONE
-            txtError.visibility = View.GONE
-            progressLoad.visibility = View.VISIBLE
-            viewModel.refresh()
-            refreshLayout.isRefreshing = false
-        }
+        val shared: SharedPreferences? = activity?.getSharedPreferences("UbayaKuliner",
+            AppCompatActivity.MODE_PRIVATE)
+        val checkid = shared?.getString(LoginFragment.user_id, (-1).toString())
+        val checkuname= shared?.getString(LoginFragment.user_username, "")
+    }
 
-        observeViewModel()
+    fun observeViewModel(){
+        viewModel.placeLD.observe(viewLifecycleOwner, Observer {
+            placeListAdapter.updatePlaceList(it)
+        })
+
+        viewModel.placeLoadErrorLD.observe(viewLifecycleOwner, Observer{
+            val txtError = view?.findViewById<TextView>(R.id.txtError)
+            if(it == true){
+                txtError?.visibility = View.VISIBLE
+            } else{
+                txtError?.visibility = View.GONE
+            }
+        })
+
+        viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
+            val recViewPlace = view?.findViewById<RecyclerView>(R.id.recView)
+            val progressLoadPlace = view?.findViewById<ProgressBar>(R.id.progressLoad)
+            if(it == true) {
+                recViewPlace?.visibility = View.GONE
+                progressLoadPlace?.visibility = View.VISIBLE
+            } else {
+                recViewPlace?.visibility = View.VISIBLE
+                progressLoadPlace?.visibility = View.GONE
+            }
+        })
     }
 }

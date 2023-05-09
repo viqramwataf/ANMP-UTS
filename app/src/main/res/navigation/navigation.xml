@@ -11,15 +11,18 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_placeFragment"
-            app:destination="@id/itemList"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/actionPlaceFragment"
+            app:destination="@id/itemList" />
     </fragment>
     <fragment
         android:id="@+id/itemList"
         android:name="com.ubaya.a160420119_uts.view.PlaceFragment"
         android:label="fragment_place"
-        tools:layout="@layout/fragment_place" />
+        tools:layout="@layout/fragment_place" >
+        <action
+            android:id="@+id/actionPlaceDetail"
+            app:destination="@id/placeDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemFavorite"
         android:name="com.ubaya.a160420119_uts.view.FavoriteFragment"
@@ -40,4 +43,13 @@
         android:name="com.ubaya.a160420119_uts.view.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/placeDetailFragment"
+        android:name="com.ubaya.a160420119_uts.view.PlaceDetailFragment"
+        android:label="fragment_place_detail"
+        tools:layout="@layout/fragment_place_detail" >
+        <argument
+            android:name="place_id"
+            app:argType="string" />
+    </fragment>
 </navigation>
