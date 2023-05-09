@@ -1,5 +1,6 @@
 package com.ubaya.a160420119_uts.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +8,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.google.android.material.textfield.TextInputEditText
 import com.ubaya.a160420119_uts.R
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.ubaya.a160420119_uts.viewmodel.LoginViewModel
+
 class LoginFragment : Fragment() {
+    private lateinit var viewModel: LoginViewModel
+
+    companion object{
+        val user_id = "IDUSER"
+        val user_username = "USERNAME"
+        val user_password = "PASSWORD"
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,18 +33,42 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val txtUsername = view.findViewById<TextInputEditText>(R.id.txtUsername)
+        val txtPassword = view.findViewById<TextInputEditText>(R.id.txtPassword)
         val btnLogin = view.findViewById<Button>(R.id.btnLogin)
-        btnLogin.setOnClickListener {
-            val user = "viqram"
-            val pass = "viqram"
-            val username = txtUsername.text.toString()
-            val password = txtPassword.text.toString()
-            if (username == user && password == pass) {
-                val action = LoginFragmentDirections.actionLoginFragmentToPlaceFragment(username)
-                Navigation.findNavController(it).navigate(action)
-            }
-            else {
+        val shared: SharedPreferences? = activity?.getSharedPreferences("UbayaKuliner",
+            AppCompatActivity.MODE_PRIVATE)
+        val editor: SharedPreferences.Editor? = shared?.edit()
+        var id = ""
+        var username = ""
+        var password = ""
 
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val checkid = shared?.getString(user_id, (-1).toString())
+        if(checkid != "-1"){
+            val action = LoginFragmentDirections.actionLoginFragmentToPlaceFragment()
+            Navigation.findNavController(view).navigate(action)
+        }
+        btnLogin.setOnClickListener {
+            if(txtUsername.text.toString() != "" && txtPassword.text.toString() != ""){
+                viewModel.login(txtUsername.text.toString(), txtPassword.text.toString())
+                viewModel.userLD.observe(viewLifecycleOwner){user->
+                    id = user.id.toString()
+                    username = user.username.toString()
+                    password = user.password.toString()
+                    if(id == ""){
+                        Toast.makeText(activity, "Sorry, Username or password is not valid", Toast.LENGTH_SHORT).show()
+                    } else {
+                        editor?.putString(user_id, id)
+                        editor?.putString(user_username, username)
+                        editor?.putString(user_password, password)
+                        editor?.apply()
+                        val action = LoginFragmentDirections.actionLoginFragmentToPlaceFragment()
+                        Navigation.findNavController(it).navigate(action)
+                    }
+                }
+            } else{
+                Toast.makeText(activity, "Wrong username/password", Toast.LENGTH_SHORT).show()
             }
         }
     }
