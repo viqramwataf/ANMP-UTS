@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.ubaya.a160420119_uts.view.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/actionPlaceFragment"
             app:destination="@id/itemList" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/itemList"
         android:name="com.ubaya.a160420119_uts.view.PlaceFragment"
-        android:label="fragment_place"
-        tools:layout="@layout/fragment_place" >
+        android:label="Place"
+        tools:layout="@layout/fragment_place">
         <action
             android:id="@+id/actionPlaceDetail"
             app:destination="@id/placeDetailFragment" />
@@ -26,28 +26,28 @@
     <fragment
         android:id="@+id/itemFavorite"
         android:name="com.ubaya.a160420119_uts.view.FavoriteFragment"
-        android:label="fragment_favorite"
+        android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
-        android:id="@+id/itemSearch"
+        android:id="@+id/itemPromo"
         android:name="com.ubaya.a160420119_uts.view.SearchFragment"
-        android:label="fragment_search"
+        android:label="Promo"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/itemHistory"
         android:name="com.ubaya.a160420119_uts.view.HistoryFragment"
-        android:label="fragment_history"
+        android:label="History"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.ubaya.a160420119_uts.view.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/placeDetailFragment"
         android:name="com.ubaya.a160420119_uts.view.PlaceDetailFragment"
-        android:label="fragment_place_detail"
-        tools:layout="@layout/fragment_place_detail" >
+        android:label="Detail Place"
+        tools:layout="@layout/fragment_place_detail">
         <argument
             android:name="place_id"
             app:argType="string" />

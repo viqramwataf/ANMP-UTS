@@ -4,20 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.BookFragment">
+    tools:context=".view.PlaceFragment">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+        android:id="@+id/refreshLayoutPlace"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.StudentListFragment">
+        tools:context=".view.PlaceFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ProgressBar
-                android:id="@+id/progressLoad"
+                android:id="@+id/progressLoadPlace"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtError"
+                android:id="@+id/txtErrorPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Error loading data"
@@ -37,9 +37,10 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recView"
+                android:id="@+id/recViewPlace"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_marginBottom="64dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

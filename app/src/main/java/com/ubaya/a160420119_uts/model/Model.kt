@@ -11,6 +11,7 @@ data class User(
 )
 
 data class Place(
+    @SerializedName("id")
     val id:String?,
     @SerializedName("place_name")
     val name:String?,

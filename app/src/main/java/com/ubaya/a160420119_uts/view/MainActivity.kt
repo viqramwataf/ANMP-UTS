@@ -2,6 +2,7 @@ package com.ubaya.a160420119_uts.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
@@ -52,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 bottomNav.visibility = View.VISIBLE
                 navView.visibility = View.VISIBLE
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
+                Log.d("Test 5:",d.label.toString())
                 if(d.id == R.id.itemList){
                     supportActionBar?.setDisplayShowHomeEnabled(true)
                     toggle.isDrawerIndicatorEnabled = true
@@ -63,5 +65,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, drawerLayout)
+                || super.onSupportNavigateUp()
     }
 }

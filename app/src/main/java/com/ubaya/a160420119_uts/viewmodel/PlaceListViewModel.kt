@@ -13,25 +13,25 @@ import com.google.gson.reflect.TypeToken
 import com.ubaya.a160420119_uts.model.Place
 
 class PlaceListViewModel (Application: Application): AndroidViewModel(Application) {
-    val placeLD = MutableLiveData<ArrayList<Place>>() //LD: Live Data
+    val placesLD = MutableLiveData<ArrayList<Place>>()
     val placeLoadErrorLD = MutableLiveData<Boolean>()
     val loadingLD = MutableLiveData<Boolean>()
 
     val TAG ="volleyTag"
-    private var queue: RequestQueue?= null
+    private var queue: RequestQueue ?= null
 
     fun refresh(){
         loadingLD.value = true
         placeLoadErrorLD.value = false
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://noinheim.my.id/ubayalib_api/get_books.php"
+        val url = "http://10.0.2.2/anmp/place.json"
 
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
                 val sType = object : TypeToken<ArrayList<Place>>() { }.type
                 val result = Gson().fromJson<ArrayList<Place>>(it, sType)
-                placeLD.value = result
+                placesLD.value = result
                 loadingLD.value = false
                 Log.d("showvoley", result.toString())
             },

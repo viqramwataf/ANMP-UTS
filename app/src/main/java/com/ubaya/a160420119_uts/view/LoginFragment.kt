@@ -53,11 +53,9 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             if(txtUsername.text.toString() != "" && txtPassword.text.toString() != ""){
                 viewModel.login(txtUsername.text.toString(), txtPassword.text.toString())
-                viewModel.userLD.observe(viewLifecycleOwner){user->
-                    id = user.id.toString()
-                    username = user.username.toString()
-                    password = user.password.toString()
-                    if(id == ""){
+                viewModel.loginStatus.observe(viewLifecycleOwner){user->
+                    Log.d("Error 1:",user.toString())
+                    if(!user){
                         Toast.makeText(activity, "Sorry, Username or password is not valid", Toast.LENGTH_SHORT).show()
                     } else {
                         editor?.putString(user_id, id)
