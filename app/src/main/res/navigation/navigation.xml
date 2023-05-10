@@ -32,7 +32,11 @@
         android:id="@+id/itemHistory"
         android:name="com.ubaya.a160420119_uts.view.HistoryFragment"
         android:label="History"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/actionHistoryDetail"
+            app:destination="@id/historyDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/itemProfile"
         android:name="com.ubaya.a160420119_uts.view.ProfileFragment"
@@ -59,4 +63,16 @@
         android:name="com.ubaya.a160420119_uts.view.PromoFragment"
         android:label="fragment_promo"
         tools:layout="@layout/fragment_promo" />
+    <fragment
+        android:id="@+id/historyDetailFragment"
+        android:name="com.ubaya.a160420119_uts.view.HistoryDetailFragment"
+        android:label="fragment_history_detail"
+        tools:layout="@layout/fragment_history_detail" >
+        <argument
+            android:name="history_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/actionHistoryFragmentFromDetail"
+            app:destination="@id/itemHistory" />
+    </fragment>
 </navigation>

@@ -10,27 +10,29 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.ubaya.a160420119_uts.model.History
 import com.ubaya.a160420119_uts.model.Place
 
-class PlaceDetailViewModel (Application: Application): AndroidViewModel(Application){
-    val placeLD = MutableLiveData<Place>()
-    val placeLoadErrorLD = MutableLiveData<Boolean>()
+class HistoryDetailViewModel (Application: Application): AndroidViewModel(Application){
+    val historyLD = MutableLiveData<History>()
+    val historyLoadErrorLD = MutableLiveData<Boolean>()
     val loadingLD = MutableLiveData<Boolean>()
     val TAG = "volleyTag"
     private var queue: RequestQueue? = null
 
-    fun fetch(placeId: String) {
-        placeLoadErrorLD.value = false
+    fun fetch(historyId: String) {
+        historyLoadErrorLD.value = false
         loadingLD.value = true
         queue = Volley.newRequestQueue(getApplication())
-        val url = "http://10.0.2.2/anmp/detailplace.json"
+        val url = "http://10.0.2.2/anmp/detailhistory.json"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
-                val result = Gson().fromJson<ArrayList<Place>>(it, object :TypeToken<ArrayList<Place>>(){}.type)
+                val result = Gson().fromJson<ArrayList<History>>(it, object :
+                    TypeToken<ArrayList<History>>(){}.type)
                 result.forEach { p->
-                    if (placeId == p.id){
-                        placeLD.value = p
+                    if (historyId == p.id){
+                        historyLD.value = p
                     }
                 }
                 Log.d("result", result.toString())
@@ -40,7 +42,7 @@ class PlaceDetailViewModel (Application: Application): AndroidViewModel(Applicat
             },
             {
                 Log.d("showvoley", it.toString())
-                placeLoadErrorLD.value = false
+                historyLoadErrorLD.value = false
                 loadingLD.value = false
             })
         stringRequest.tag = TAG

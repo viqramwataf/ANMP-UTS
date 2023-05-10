@@ -61,6 +61,14 @@ data class History(
     val dateTime:String?,
     @SerializedName("status_history")
     val status:String?,
+    @SerializedName("order")
+    val order:String?,
+    @SerializedName("total_price")
+    val total_price:String?,
+    @SerializedName("quantity")
+    val quantity:String?,
+    @SerializedName("rate")
+    val rate:String?,
     @SerializedName("photo_url")
     val photo_url:String?,
 )

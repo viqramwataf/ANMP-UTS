@@ -3,9 +3,11 @@ package com.ubaya.a160420119_uts.view
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ubaya.a160420119_uts.R
 import com.ubaya.a160420119_uts.model.History
@@ -31,11 +33,19 @@ class HistoryAdapter (val historyList: ArrayList<History>): RecyclerView.Adapter
 
         val progressBarHistory = holder.view.findViewById<ProgressBar>(R.id.progressBar4)
         val imgHistory = holder.view.findViewById<ImageView>(R.id.imgHistory)
+        val btnDetail = holder.view.findViewById<Button>(R.id.btnDetail)
+        val idHistory = historyList[position].id.toString()
+
 
         imgHistory.loadImage(historyList[position].photo_url, progressBarHistory)
         txtHistoryPlaceName.text = historyList[position].name
         txtDateTime.text = historyList[position].dateTime
         txtStatus.text = historyList[position].status
+
+        btnDetail.setOnClickListener {
+            val action = HistoryFragmentDirections.actionHistoryDetail(idHistory)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     fun updateListHistory(newHistoryList: ArrayList<History>) {

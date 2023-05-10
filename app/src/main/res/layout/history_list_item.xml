@@ -60,6 +60,18 @@
                 app:layout_constraintStart_toEndOf="@+id/imgHistory"
                 app:layout_constraintTop_toBottomOf="@+id/txtHistoryPlace" />
 
+            <Button
+                android:id="@+id/btnDetail"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:layout_marginEnd="8dp"
+                android:text="Detail"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ProgressBar
                 android:id="@+id/progressBar4"
                 style="?android:attr/progressBarStyle"
