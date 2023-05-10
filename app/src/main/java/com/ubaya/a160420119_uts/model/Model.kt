@@ -67,8 +67,10 @@ data class History(
     val username:String?,
     @SerializedName("date_time")
     val dateTime:String?,
-    @SerializedName("status")
+    @SerializedName("status_history")
     val status:String?,
+    @SerializedName("photo_url")
+    val photo_url:String?,
 )
 
 data class Profile(
