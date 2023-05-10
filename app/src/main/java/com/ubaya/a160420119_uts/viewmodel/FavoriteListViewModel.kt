@@ -20,7 +20,7 @@ class FavoriteListViewModel (Application: Application): AndroidViewModel(Applica
     val TAG ="volleyTag"
     private var queue: RequestQueue?= null
 
-    fun refresh(){
+    fun refresh(userId: String){
         loadingLD.value = true
         favoriteLoadErrorLD.value = false
         queue = Volley.newRequestQueue(getApplication())
@@ -31,7 +31,12 @@ class FavoriteListViewModel (Application: Application): AndroidViewModel(Applica
             {
                 val sType = object : TypeToken<ArrayList<Favorite>>() { }.type
                 val result = Gson().fromJson<ArrayList<Favorite>>(it, sType)
-                favoritesLD.value = result
+                var filter = ArrayList<Favorite>()
+                result.forEach { f ->
+                    if (f.userId.toString() == userId)
+                    { filter.add(f) }
+                }
+                favoritesLD.value = filter
                 loadingLD.value = false
                 Log.d("showvoley", result.toString())
             },

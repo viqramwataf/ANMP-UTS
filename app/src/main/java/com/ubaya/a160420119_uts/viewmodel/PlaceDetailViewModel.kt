@@ -26,14 +26,18 @@ class PlaceDetailViewModel (Application: Application): AndroidViewModel(Applicat
         placeLoadErrorLD.value = false
         loadingLD.value = true
         queue = Volley.newRequestQueue(getApplication())
-        val url = "http://10.0.2.2/anmp/place.json?id=$placeId"
+        val url = "http://10.0.2.2/anmp/detailplace.json"
 //        val url = "http://10.0.2.2/anmp/place.json"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
 //                val result = Gson().fromJson<ArrayList<Place>>(it, object :TypeToken<ArrayList<Place>>(){}.type)
-                val result = Gson().fromJson<Place>(it, Place::class.java)
-                placeLD.value = result
+                val result = Gson().fromJson<ArrayList<Place>>(it, object :TypeToken<ArrayList<Place>>(){}.type)
+                result.forEach { p->
+                    if (placeId == p.id){
+                        placeLD.value = p
+                    }
+                }
                 Log.d("result", result.toString())
 //                for (place in result) {
 //                    if (place.id == placeId) {

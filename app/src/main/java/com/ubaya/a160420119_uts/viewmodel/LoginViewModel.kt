@@ -18,23 +18,23 @@ import com.ubaya.a160420119_uts.view.LoginFragment
 import com.ubaya.a160420119_uts.view.LoginFragmentDirections
 
 class LoginViewModel (Application: Application): AndroidViewModel(Application) {
-    val userLD = MutableLiveData<ArrayList<User>>() //LD = live data
+    val userLD = MutableLiveData<User>() //LD = live data
     val loginStatus = MutableLiveData<Boolean>( false)
     val TAG = "volleyTag"
     private var queue: RequestQueue? = null
 
     fun login(username: String, password: String) {
         queue = Volley.newRequestQueue(getApplication())
-        val url = "https://my-json-server.typicode.com/viqramwataf/UTS-JSON/user"
+        val url = "http://10.0.2.2/anmp/profile.json"
         val stringRequest = StringRequest(
             Request.Method.GET, url,
             {
                 val result = Gson().fromJson<ArrayList<User>>(it, object :TypeToken<ArrayList<User>>(){}.type)
-                userLD.value = result
                 Log.d("Error 2:",result.toString())
                 for (user in result) {
-                    if (user.username==username && user.password==password) {
+                    if (user.username == username && user.password == password) {
                         loginStatus.value = true
+                        userLD.value = user
                     }
                 }
                 Log.d("showvoley", result.toString())

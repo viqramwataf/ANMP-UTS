@@ -2,14 +2,6 @@ package com.ubaya.a160420119_uts.model
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
-    val id:String?,
-    @SerializedName("username")
-    val username:String?,
-    @SerializedName("password")
-    val password:String?,
-)
-
 data class Place(
     @SerializedName("id")
     val id:String?,
@@ -73,7 +65,7 @@ data class History(
     val photo_url:String?,
 )
 
-data class Profile(
+data class User(
     val id:String?,
     @SerializedName("username")
     val username:String?,

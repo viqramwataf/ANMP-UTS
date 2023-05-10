@@ -20,9 +20,12 @@ class LoginFragment : Fragment() {
     private lateinit var viewModel: LoginViewModel
 
     companion object{
-        val user_id = "IDUSER"
+        val user_id = "USERID"
         val user_username = "USERNAME"
         val user_password = "PASSWORD"
+        val user_bod = "BOD"
+        val user_phone = "PHONE"
+        val user_photo = "PHOTO"
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,12 +40,10 @@ class LoginFragment : Fragment() {
         val txtUsername = view.findViewById<TextInputEditText>(R.id.txtUsername)
         val txtPassword = view.findViewById<TextInputEditText>(R.id.txtPassword)
         val btnLogin = view.findViewById<Button>(R.id.btnLogin)
+
         val shared: SharedPreferences? = activity?.getSharedPreferences("UbayaKuliner",
             AppCompatActivity.MODE_PRIVATE)
         val editor: SharedPreferences.Editor? = shared?.edit()
-        var id = ""
-        var username = ""
-        var password = ""
 
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         val checkid = shared?.getString(user_id, (-1).toString())
@@ -53,14 +54,16 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             if(txtUsername.text.toString() != "" && txtPassword.text.toString() != ""){
                 viewModel.login(txtUsername.text.toString(), txtPassword.text.toString())
-                viewModel.loginStatus.observe(viewLifecycleOwner){user->
-                    Log.d("Error 1:",user.toString())
-                    if(!user){
+                viewModel.userLD.observe(viewLifecycleOwner){user->
+                    if(user.username == "" && user.password == ""){
                         Toast.makeText(activity, "Sorry, Username or password is not valid", Toast.LENGTH_SHORT).show()
                     } else {
-                        editor?.putString(user_id, id)
-                        editor?.putString(user_username, username)
-                        editor?.putString(user_password, password)
+                        editor?.putString(user_id, user.id)
+                        editor?.putString(user_username, user.username)
+                        editor?.putString(user_password, user.password)
+                        editor?.putString(user_bod, user.bod)
+                        editor?.putString(user_phone, user.phone)
+                        editor?.putString(user_photo, user.photo_user_url)
                         editor?.apply()
                         val action = LoginFragmentDirections.actionPlaceFragment()
                         Navigation.findNavController(it).navigate(action)

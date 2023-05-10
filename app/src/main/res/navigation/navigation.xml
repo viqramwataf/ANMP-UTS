@@ -37,7 +37,11 @@
         android:id="@+id/itemProfile"
         android:name="com.ubaya.a160420119_uts.view.ProfileFragment"
         android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/actionLoginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/placeDetailFragment"
         android:name="com.ubaya.a160420119_uts.view.PlaceDetailFragment"

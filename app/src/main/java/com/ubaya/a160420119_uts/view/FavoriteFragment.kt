@@ -1,5 +1,6 @@
 package com.ubaya.a160420119_uts.view
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,10 @@ class FavoriteFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favorite, container, false)
+    }
+
+    companion object{
+        val user_id = "USERID"
     }
 
     fun observeViewModel(){
@@ -56,7 +62,10 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(FavoriteListViewModel::class.java)
-        viewModel.refresh()
+        val shared: SharedPreferences? = activity?.getSharedPreferences("UbayaKuliner",
+            AppCompatActivity.MODE_PRIVATE)
+        val userId = shared?.getString(user_id, "0")
+        viewModel.refresh(userId!!)
         val recView = view.findViewById<RecyclerView>(R.id.recViewFavorite)
         val refreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.refreshLayoutFavorite)
         val txtError = view.findViewById<TextView>(R.id.txtErrorFavorite)
@@ -69,7 +78,7 @@ class FavoriteFragment : Fragment() {
             recView.visibility = View.GONE
             txtError.visibility = View.GONE
             progressLoadFavorite.visibility = View.VISIBLE
-            viewModel.refresh()
+            viewModel.refresh(userId)
             refreshLayout.isRefreshing = false
         }
     }

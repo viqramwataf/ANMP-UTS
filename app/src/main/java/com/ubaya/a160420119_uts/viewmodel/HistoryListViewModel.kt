@@ -10,6 +10,7 @@ import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.ubaya.a160420119_uts.model.Favorite
 import com.ubaya.a160420119_uts.model.History
 
 class HistoryListViewModel (Application: Application): AndroidViewModel(Application) {
@@ -20,7 +21,7 @@ class HistoryListViewModel (Application: Application): AndroidViewModel(Applicat
     val TAG ="volleyTag"
     private var queue: RequestQueue?= null
 
-    fun refresh(){
+    fun refresh(userId: String){
         loadingLD.value = true
         historyLoadErrorLD.value = false
         queue = Volley.newRequestQueue(getApplication())
@@ -31,7 +32,12 @@ class HistoryListViewModel (Application: Application): AndroidViewModel(Applicat
             {
                 val sType = object : TypeToken<ArrayList<History>>() { }.type
                 val result = Gson().fromJson<ArrayList<History>>(it, sType)
-                historiesLD.value = result
+                var filter = ArrayList<History>()
+                result.forEach { f ->
+                    if (f.userId.toString() == userId)
+                    { filter.add(f) }
+                }
+                historiesLD.value = filter
                 loadingLD.value = false
                 Log.d("showvoley", result.toString())
             },

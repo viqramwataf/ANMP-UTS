@@ -1,6 +1,7 @@
 package com.ubaya.a160420119_uts.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -36,8 +37,8 @@ class PlaceDetailFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(PlaceDetailViewModel::class.java)
         viewModel.fetch(placeId)
 
-        val txtPlaceName = view.findViewById<TextView>(R.id.txtPlace)
-        val txtLocation = view.findViewById<TextView>(R.id.txtLocation)
+        val txtPlaceName = view.findViewById<TextView>(R.id.txtPlaceDetail)
+        val txtLocation = view.findViewById<TextView>(R.id.txtPlaceDetailLocation)
         val txtFnB = view.findViewById<TextView>(R.id.txtFnBMenu)
         val txtPhone = view.findViewById<TextView>(R.id.txtTelp)
         val txtReview = view.findViewById<TextView>(R.id.txtReview)
@@ -46,12 +47,13 @@ class PlaceDetailFragment : Fragment() {
         val btnBack = view.findViewById<Button>(R.id.btnBack)
 
         viewModel.placeLD.observe(viewLifecycleOwner) {place->
-            txtPlaceName.text = place.name
-            txtLocation.text = "Location: " + place.location
-            txtFnB.text = place.fnb_menu
-            txtPhone.text = "Phone: " + place.phone
-            txtReview.text = place.review
-            imgPhotoUrl.loadImage(place.photo_url, progressBarDtlPlace)
+            Log.e("place_error", place.toString())
+            txtPlaceName?.text = place.name
+            txtLocation?.text = "Location: " + place.location
+            txtFnB?.text = place.fnb_menu
+            txtPhone?.text = "Phone: " + place.phone
+            txtReview?.text = place.review
+            imgPhotoUrl.loadImage(place.photo_url, progressBarDtlPlace!!)
 
             btnBack.setOnClickListener {
                 val action = PlaceDetailFragmentDirections.actionPlaceFragmentFromDetail()
