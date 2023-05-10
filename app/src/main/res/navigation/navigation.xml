@@ -29,11 +29,6 @@
         android:label="Favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
-        android:id="@+id/itemPromo"
-        android:name="com.ubaya.a160420119_uts.view.SearchFragment"
-        android:label="Promo"
-        tools:layout="@layout/fragment_search" />
-    <fragment
         android:id="@+id/itemHistory"
         android:name="com.ubaya.a160420119_uts.view.HistoryFragment"
         android:label="History"
@@ -55,4 +50,9 @@
             android:id="@+id/actionPlaceFragmentFromDetail"
             app:destination="@id/itemList" />
     </fragment>
+    <fragment
+        android:id="@+id/itemPromo"
+        android:name="com.ubaya.a160420119_uts.view.PromoFragment"
+        android:label="fragment_promo"
+        tools:layout="@layout/fragment_promo" />
 </navigation>

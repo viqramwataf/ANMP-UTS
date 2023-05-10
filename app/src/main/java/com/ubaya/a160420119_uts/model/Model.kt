@@ -50,7 +50,7 @@ data class Promo(
     @SerializedName("name_disc")
     val name_disc:String?,
     @SerializedName("disc")
-    val disc:Int?,
+    val disc:String?,
     @SerializedName("photo_url")
     val photo_url:String?,
 )

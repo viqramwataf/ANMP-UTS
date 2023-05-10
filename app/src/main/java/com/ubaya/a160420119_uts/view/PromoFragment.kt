@@ -13,26 +13,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ubaya.a160420119_uts.R
-import com.ubaya.a160420119_uts.viewmodel.FavoriteListViewModel
+import com.ubaya.a160420119_uts.viewmodel.PromoListViewModel
 
-class FavoriteFragment : Fragment() {
-    private lateinit var viewModel: FavoriteListViewModel
-    private val favoriteListAdapter = FavoriteAdapter(arrayListOf())
+class PromoFragment : Fragment() {
+    private lateinit var viewModel: PromoListViewModel
+    private val promoListAdapter = PromoAdapter(arrayListOf())
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false)
+        return inflater.inflate(R.layout.fragment_promo, container, false)
     }
 
     fun observeViewModel(){
-        viewModel.favoritesLD.observe(viewLifecycleOwner, Observer {
-            favoriteListAdapter.updateListFavorite(it)
+        viewModel.promosLD.observe(viewLifecycleOwner, Observer {
+            promoListAdapter.updateListPromo(it)
         })
 
-        viewModel.favoriteLoadErrorLD.observe(viewLifecycleOwner, Observer{
-            val txtError = view?.findViewById<TextView>(R.id.txtErrorFavorite)
+        viewModel.promoLoadErrorLD.observe(viewLifecycleOwner, Observer{
+            val txtError = view?.findViewById<TextView>(R.id.txtErrorPromo)
             if(it == true){
                 txtError?.visibility = View.VISIBLE
             } else{
@@ -41,34 +41,34 @@ class FavoriteFragment : Fragment() {
         })
 
         viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
-            val recViewFavorite = view?.findViewById<RecyclerView>(R.id.recViewFavorite)
-            val progressLoadFavorite = view?.findViewById<ProgressBar>(R.id.progressLoadFavorite)
+            val recViewPromo = view?.findViewById<RecyclerView>(R.id.recViewPromo)
+            val progressLoadPromo = view?.findViewById<ProgressBar>(R.id.progressLoadPromo)
             if(it == true) {
-                recViewFavorite?.visibility = View.GONE
-                progressLoadFavorite?.visibility = View.VISIBLE
+                recViewPromo?.visibility = View.GONE
+                progressLoadPromo?.visibility = View.VISIBLE
             } else {
-                recViewFavorite?.visibility = View.VISIBLE
-                progressLoadFavorite?.visibility = View.GONE
+                recViewPromo?.visibility = View.VISIBLE
+                progressLoadPromo?.visibility = View.GONE
             }
         })
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FavoriteListViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(PromoListViewModel::class.java)
         viewModel.refresh()
-        val recView = view.findViewById<RecyclerView>(R.id.recViewFavorite)
-        val refreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.refreshLayoutFavorite)
-        val txtError = view.findViewById<TextView>(R.id.txtErrorFavorite)
-        val progressLoadFavorite = view.findViewById<ProgressBar>(R.id.progressLoadFavorite)
+        val recView = view.findViewById<RecyclerView>(R.id.recViewPromo)
+        val refreshLayout = view.findViewById<SwipeRefreshLayout>(R.id.refreshLayoutPromo)
+        val txtError = view.findViewById<TextView>(R.id.txtErrorPromo)
+        val progressLoadPromo = view.findViewById<ProgressBar>(R.id.progressLoadPromo)
         recView.layoutManager = LinearLayoutManager(context)
-        recView.adapter = favoriteListAdapter
+        recView.adapter = promoListAdapter
         observeViewModel()
 
         refreshLayout.setOnRefreshListener {
             recView.visibility = View.GONE
             txtError.visibility = View.GONE
-            progressLoadFavorite.visibility = View.VISIBLE
+            progressLoadPromo.visibility = View.VISIBLE
             viewModel.refresh()
             refreshLayout.isRefreshing = false
         }
