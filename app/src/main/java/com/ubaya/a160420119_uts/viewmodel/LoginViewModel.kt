@@ -19,7 +19,6 @@ import com.ubaya.a160420119_uts.view.LoginFragmentDirections
 
 class LoginViewModel (Application: Application): AndroidViewModel(Application) {
     val userLD = MutableLiveData<ArrayList<User>>() //LD = live data
-    val statusLD = MutableLiveData<String>()
     val loginStatus = MutableLiveData<Boolean>( false)
     val TAG = "volleyTag"
     private var queue: RequestQueue? = null
@@ -36,7 +35,8 @@ class LoginViewModel (Application: Application): AndroidViewModel(Application) {
                 for (user in result) {
                     if (user.username==username && user.password==password) {
                         loginStatus.value = true
-                }}
+                    }
+                }
                 Log.d("showvoley", result.toString())
             },
             {

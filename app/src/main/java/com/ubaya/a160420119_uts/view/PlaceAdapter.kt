@@ -9,8 +9,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.toolbox.Volley
-import com.squareup.picasso.Picasso
 import com.ubaya.a160420119_uts.R
 import com.ubaya.a160420119_uts.model.Place
 import com.ubaya.a160420119_uts.util.loadImage

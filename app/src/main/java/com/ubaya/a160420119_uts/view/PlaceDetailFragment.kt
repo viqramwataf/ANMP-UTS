@@ -1,16 +1,18 @@
 package com.ubaya.a160420119_uts.view
 
-import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.ubaya.a160420119_uts.R
+import com.ubaya.a160420119_uts.util.loadImage
 import com.ubaya.a160420119_uts.viewmodel.PlaceDetailViewModel
 
 class PlaceDetailFragment : Fragment() {
@@ -36,26 +38,25 @@ class PlaceDetailFragment : Fragment() {
 
         val txtPlaceName = view.findViewById<TextView>(R.id.txtPlace)
         val txtLocation = view.findViewById<TextView>(R.id.txtLocation)
-        val txtPhone = view.findViewById<TextView>(R.id.txtPhone)
-        val imgPhotoUrl = view.findViewById<ImageView>(R.id.imgDetailBuku)
+        val txtFnB = view.findViewById<TextView>(R.id.txtFnBMenu)
+        val txtPhone = view.findViewById<TextView>(R.id.txtTelp)
+        val txtReview = view.findViewById<TextView>(R.id.txtReview)
+        val imgPhotoUrl = view.findViewById<ImageView>(R.id.imgPlaceDetail)
         val progressBarDtlPlace = view.findViewById<ProgressBar>(R.id.progressBarDtlPlace)
-        btnReview
-        val txtReview = view.findViewById<TextView>(R.id.TextView2)
+        val btnBack = view.findViewById<Button>(R.id.btnBack)
 
-        viewModel.placeLD.observe(viewLifecycleOwner) {book->
-            txtJudulDetail.text = book.bookTitle
-            txtDetailPengarang.text = "Pengarang ${book.penulis}"
-            txtPenerbit.text = "Penerbit: ${book.penerbit}, ${book.tahunTerbit}"
-            txtDimensi.text = "Dimensi: ${book.dimensi}"
-            txtIsbn.text = "ISBN: ${book.isbn}"
-            txtKetersediaan.text = "Ketersediaan: ${book.ketersediaan}"
-            if(book.ketersediaan == "Tersedia"){
-                txtKetersediaan.setTextColor(Color.parseColor("#59FB03"))
-            } else{
-                txtKetersediaan.setTextColor(Color.parseColor("#FB0303"))
+        viewModel.placeLD.observe(viewLifecycleOwner) {place->
+            txtPlaceName.text = place.name
+            txtLocation.text = "Location: " + place.location
+            txtFnB.text = place.fnb_menu
+            txtPhone.text = "Phone: " + place.phone
+            txtReview.text = place.review
+            imgPhotoUrl.loadImage(place.photo_url, progressBarDtlPlace)
+
+            btnBack.setOnClickListener {
+                val action = PlaceDetailFragmentDirections.actionPlaceFragmentFromDetail()
+                Navigation.findNavController(view).navigate(action)
             }
-            txtSinopsis.text = book.sinopsis
-            imgDetailBuku.loadImage(book.gambar, progressBar3)
         }
     }
 

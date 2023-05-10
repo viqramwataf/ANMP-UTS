@@ -41,13 +41,13 @@ class PlaceFragment : Fragment() {
         })
 
         viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
-            val recViewBook = view?.findViewById<RecyclerView>(R.id.recViewPlace)
+            val recViewPlace = view?.findViewById<RecyclerView>(R.id.recViewPlace)
             val progressLoadPlace = view?.findViewById<ProgressBar>(R.id.progressLoadPlace)
             if(it == true) {
-                recViewBook?.visibility = View.GONE
+                recViewPlace?.visibility = View.GONE
                 progressLoadPlace?.visibility = View.VISIBLE
             } else {
-                recViewBook?.visibility = View.VISIBLE
+                recViewPlace?.visibility = View.VISIBLE
                 progressLoadPlace?.visibility = View.GONE
             }
         })

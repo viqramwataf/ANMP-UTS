@@ -51,5 +51,8 @@
         <argument
             android:name="place_id"
             app:argType="string" />
+        <action
+            android:id="@+id/actionPlaceFragmentFromDetail"
+            app:destination="@id/itemList" />
     </fragment>
 </navigation>
