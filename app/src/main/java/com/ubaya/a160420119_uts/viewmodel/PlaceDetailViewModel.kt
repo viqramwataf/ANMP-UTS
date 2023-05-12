@@ -23,6 +23,7 @@ class PlaceDetailViewModel (Application: Application): AndroidViewModel(Applicat
         placeLoadErrorLD.value = false
         loadingLD.value = true
         queue = Volley.newRequestQueue(getApplication())
+        //file json
         val url = "http://10.0.2.2/anmp/detailplace.json"
         val stringRequest = StringRequest(
             Request.Method.GET, url,

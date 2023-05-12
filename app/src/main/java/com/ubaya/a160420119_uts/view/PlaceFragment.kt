@@ -40,6 +40,7 @@ class PlaceFragment : Fragment() {
             }
         })
 
+        //recycle view
         viewModel.loadingLD.observe(viewLifecycleOwner, Observer {
             val recViewPlace = view?.findViewById<RecyclerView>(R.id.recViewPlace)
             val progressLoadPlace = view?.findViewById<ProgressBar>(R.id.progressLoadPlace)
@@ -55,6 +56,7 @@ class PlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //list view model
         viewModel = ViewModelProvider(this).get(PlaceListViewModel::class.java)
         viewModel.refresh()
         val recView = view.findViewById<RecyclerView>(R.id.recViewPlace)
